@@ -22,10 +22,10 @@ template=$(cat "/path/to/httpTemp.conf")
 # Check that a project name is given
 if [ $# -eq 1 ]
 then
-  name=$1          #  If more than one command-line param,
-                   #+ then just take the first.
+    name=$1     #  If more than one command-line param,
+                #+ then just take the first.
 else
-  name="example"  #  Default, if no command-line parameter.
+    name="example"  #  Default, if no command-line parameter.
 fi
 
 
@@ -33,28 +33,26 @@ fi
 site=$(echo "$template" | sed -e "s/\${name}/$name/g")
 
 
-
 # Make sure that the website does not already exist
 if [ ! -f "/etc/apache2/mine/$name.conf" ]; then
 
-	# Generate the the sites config file and activate it
-	echo "$site" >  "/etc/apache2/mine/$name.conf";
-	echo -e "\n\n#Generated site for $name\nInclude /private/etc/apache2/mine/$name.conf" >>  "/etc/apache2/httpd.conf";
+    # Generate the the sites config file and activate it
+    echo "$site" >  "/etc/apache2/mine/$name.conf";
+    echo -e "\n\n#Generated site for $name\nInclude /private/etc/apache2/mine/$name.conf" >>  "/etc/apache2/httpd.conf";
 
-	# Create a project file direcotry for this project
-	mkdir "/var/www/$name"
-  echo "Hello world!" >> "/var/www/$name/index.html"
+    # Create a project file direcotry for this project
+    mkdir "/var/www/$name"
+    echo "Hello world!" >> "/var/www/$name/index.html"
 
 
-	# Make sure the configuration is all good
-	echo -e "${ORANGE}";
-	apachectl configtest;
-	echo -e "${NC}";
+    # Make sure the configuration is all good
+    echo -e "${ORANGE}";
+    apachectl configtest;
+    echo -e "${NC}";
 
-	# Restart the web server
-	apachectl restart;
+    # Restart the web server
+    apachectl restart;
 
 else
-	echo -e "${RED}Site Already exists! Aborting...${NC}";
+    echo -e "${RED}Site Already exists! Aborting...${NC}";
 fi
-
