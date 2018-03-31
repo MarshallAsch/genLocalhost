@@ -38,7 +38,7 @@ if [ ! -f "/etc/apache2/mine/$name.conf" ]; then
 
     # Generate the the sites config file and activate it
     echo "$site" >  "/etc/apache2/mine/$name.conf";
-    echo -e "\n\n#Generated site for $name\nInclude /private/etc/apache2/mine/$name.conf" >>  "/etc/apache2/httpd.conf";
+    echo -e "\nInclude /private/etc/apache2/mine/$name.conf" >>  "/etc/apache2/httpd.conf";
 
     # Create a project file direcotry for this project
     mkdir "/var/www/$name"
